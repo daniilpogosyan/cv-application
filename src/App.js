@@ -1,5 +1,6 @@
 import React from 'react';
 import Personal from './components/Personal';
+import Education from './components/Education';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,11 +12,21 @@ class App extends React.Component {
         email: "",
         phoneNumber: ""
       },
-      education: [],
+      education: [
+        {
+          id: "firstItem",
+          data: {
+            place: "home",
+            study: "math",
+            period: "2000"
+          }
+        },
+      ],
       workExperience: []
     }
 
     this.handlePersonalChange = this.handlePersonalChange.bind(this);
+    this.handleEducationItemChange = this.handleEducationItemChange.bind(this);
   }
 
   handlePersonalChange(event) {
@@ -27,6 +38,21 @@ class App extends React.Component {
       return {personal}
     })
   }
+  
+  handleEducationItemChange(event, id) {
+    this.setState((state) => {
+      const education = JSON.parse(
+        JSON.stringify(state.education)
+      );
+
+      const targetIndex = state.education
+        .findIndex((educationItem) => educationItem.id === id);
+        
+      education[targetIndex].data[event.target.name] = event.target.value;
+      
+      return {education}
+    })
+  }
 
   render() {
     return (
@@ -34,6 +60,10 @@ class App extends React.Component {
         <Personal
           personal={this.state.personal}
           onUpdate={this.handlePersonalChange}
+        />
+        <Education
+          education={this.state.education}
+          onItemUpdate={this.handleEducationItemChange}
         />
       </div>
     );
