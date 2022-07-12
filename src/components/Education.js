@@ -23,6 +23,7 @@ export default class Education extends React.Component {
             ))
           }
         </ul>
+        <button onClick={this.props.onItemAdd}>Add +</button>
       </section>
     )
   }

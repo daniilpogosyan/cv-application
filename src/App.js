@@ -2,6 +2,7 @@ import React from 'react';
 import Personal from './components/Personal';
 import Education from './components/Education';
 import WorkExperience from './components/WorkExperience';
+import uniqid from 'uniqid';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class App extends React.Component {
       },
       education: [
         {
-          id: "firstItem",
+          id: uniqid(),
           data: {
             place: "home",
             study: "math",
@@ -25,7 +26,7 @@ class App extends React.Component {
       ],
       workExperience: [
         {
-          id: "secondItem",
+          id: uniqid(),
           data: {
             company: "macrohard",
             position: "janitor",
@@ -36,7 +37,10 @@ class App extends React.Component {
     }
 
     this.handlePersonalChange = this.handlePersonalChange.bind(this);
+
     this.handleEducationItemChange = this.handleEducationItemChange.bind(this);
+    this.handleEducationItemAdd = this.handleEducationItemAdd.bind(this);
+
     this.handleWorkExperienceItemChange = this.handleWorkExperienceItemChange.bind(this);
   }
 
@@ -65,6 +69,20 @@ class App extends React.Component {
     })
   }
 
+  handleEducationItemAdd(event) {
+    const newItem = {
+      id: uniqid(),
+      data: {
+        place: "",
+        study: "",
+        period: ""
+      }
+    }
+    this.setState({
+      education: this.state.education.concat(newItem)
+    })
+  }
+
   handleWorkExperienceItemChange(event, id) {
     this.setState((state) => {
       const workExperience = JSON.parse(
@@ -90,6 +108,7 @@ class App extends React.Component {
         <Education
           education={this.state.education}
           onItemUpdate={this.handleEducationItemChange}
+          onItemAdd={this.handleEducationItemAdd}
         />
         <WorkExperience
           workExperience={this.state.workExperience}
