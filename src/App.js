@@ -42,6 +42,7 @@ class App extends React.Component {
     this.handleEducationItemAdd = this.handleEducationItemAdd.bind(this);
 
     this.handleWorkExperienceItemChange = this.handleWorkExperienceItemChange.bind(this);
+    this.handleWorkExperienceItemAdd = this.handleWorkExperienceItemAdd.bind(this);
   }
 
   handlePersonalChange(event) {
@@ -98,6 +99,21 @@ class App extends React.Component {
     })
   }
 
+  handleWorkExperienceItemAdd(event) {
+    const newItem = {
+      id: uniqid(),
+      data: {
+        company: "",
+        position: "",
+        period: ""
+      }
+    }
+    this.setState({
+      workExperience: this.state.workExperience.concat(newItem)
+    })
+  }
+  
+
   render() {
     return (
       <div className="App">
@@ -113,6 +129,7 @@ class App extends React.Component {
         <WorkExperience
           workExperience={this.state.workExperience}
           onItemUpdate={this.handleWorkExperienceItemChange}
+          onItemAdd={this.handleWorkExperienceItemAdd}
         />
       </div>
     );

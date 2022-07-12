@@ -23,6 +23,7 @@ export default class WorkExperience extends React.Component {
             ))
           }
         </ul>
+        <button onClick={this.props.onItemAdd}>Add +</button>
       </section>
     )
   }
