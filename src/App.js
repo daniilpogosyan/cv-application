@@ -1,7 +1,5 @@
 import React from 'react';
-import Personal from './components/Personal';
-import Education from './components/Education';
-import WorkExperience from './components/WorkExperience';
+import CVForm from './components/CVForm'
 import uniqid from 'uniqid';
 
 class App extends React.Component {
@@ -44,6 +42,7 @@ class App extends React.Component {
 
     this.handleWorkExperienceItemChange = this.handleWorkExperienceItemChange.bind(this);
     this.handleWorkExperienceItemAdd = this.handleWorkExperienceItemAdd.bind(this);
+    this.handleWorkExperienceItemDelete = this.handleWorkExperienceItemDelete.bind(this);
   }
 
   handlePersonalChange(event) {
@@ -120,24 +119,28 @@ class App extends React.Component {
     })
   }
   
+  handleWorkExperienceItemDelete(event, id) {
+    this.setState({
+      workExperience: this.state.workExperience.filter((item) => item.id !== id)
+    })
+  }
 
   render() {
     return (
       <div className="App">
-        <Personal
+        <CVForm
           personal={this.state.personal}
-          onUpdate={this.handlePersonalChange}
-        />
-        <Education
+          onPersonalUpdate={this.handlePersonalChange}
+
           education={this.state.education}
-          onItemUpdate={this.handleEducationItemChange}
-          onItemAdd={this.handleEducationItemAdd}
-          onItemDelete={this.handleEducationItemDelete}
-        />
-        <WorkExperience
+          onEducationItemUpdate={this.handleEducationItemChange}
+          onEducationItemAdd={this.handleEducationItemAdd}
+          onEducationItemDelete={this.handleEducationItemDelete}
+
           workExperience={this.state.workExperience}
-          onItemUpdate={this.handleWorkExperienceItemChange}
-          onItemAdd={this.handleWorkExperienceItemAdd}
+          onWorkExperienceItemUpdate={this.handleWorkExperienceItemChange}
+          onWorkExperienceItemAdd={this.handleWorkExperienceItemAdd}
+          onWorkExperienceItemDelete={this.handleWorkExperienceItemDelete}
         />
       </div>
     );

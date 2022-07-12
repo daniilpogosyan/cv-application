@@ -18,6 +18,7 @@ export default class WorkExperience extends React.Component {
                 <WorkExperienceItem
                   workExperienceItem={workExperienceItem.data}
                   onUpdate={(event) => this.props.onItemUpdate(event, workExperienceItem.id)}
+                  onDelete={(event) => this.props.onItemDelete(event, workExperienceItem.id)}
                 />
               </li>
             ))

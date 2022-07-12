@@ -28,6 +28,7 @@ export default class WorkExperienceItem extends React.Component {
           value={this.props.workExperienceItem.period}
           onChange={this.props.onUpdate}
         />
+        <button onClick={this.props.onDelete}>Delete</button>
       </section>
     )
   }
