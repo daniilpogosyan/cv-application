@@ -28,6 +28,7 @@ export default class EducationItem extends React.Component {
           value={this.props.educationItem.period}
           onChange={this.props.onUpdate}
         />
+        <button onClick={this.props.onDelete}>Delete</button>
       </section>
     )
   }

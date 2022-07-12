@@ -18,6 +18,7 @@ export default class Education extends React.Component {
                 <EducationItem
                   educationItem={educationItem.data}
                   onUpdate={(event) => this.props.onItemUpdate(event, educationItem.id)}
+                  onDelete={(event) => this.props.onItemDelete(event, educationItem.id)}
                 />
               </li>
             ))

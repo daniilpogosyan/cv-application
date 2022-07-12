@@ -40,6 +40,7 @@ class App extends React.Component {
 
     this.handleEducationItemChange = this.handleEducationItemChange.bind(this);
     this.handleEducationItemAdd = this.handleEducationItemAdd.bind(this);
+    this.handleEducationItemDelete = this.handleEducationItemDelete.bind(this);
 
     this.handleWorkExperienceItemChange = this.handleWorkExperienceItemChange.bind(this);
     this.handleWorkExperienceItemAdd = this.handleWorkExperienceItemAdd.bind(this);
@@ -81,6 +82,12 @@ class App extends React.Component {
     }
     this.setState({
       education: this.state.education.concat(newItem)
+    })
+  }
+  
+  handleEducationItemDelete(event, id) {
+    this.setState({
+      education: this.state.education.filter((item) => item.id !== id)
     })
   }
 
@@ -125,6 +132,7 @@ class App extends React.Component {
           education={this.state.education}
           onItemUpdate={this.handleEducationItemChange}
           onItemAdd={this.handleEducationItemAdd}
+          onItemDelete={this.handleEducationItemDelete}
         />
         <WorkExperience
           workExperience={this.state.workExperience}
