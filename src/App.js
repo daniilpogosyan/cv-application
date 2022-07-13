@@ -2,6 +2,7 @@ import React from 'react';
 import CVForm from './components/CVForm/CVForm'
 import Preview from './components/Preview/Preview';
 import uniqid from 'uniqid';
+import './App.css'
 
 class App extends React.Component {
   constructor(props) {
