@@ -1,0 +1,13 @@
+.preview__personal {
+  display: flex;
+  border-bottom: 4px solid #4169e1;  
+}
+
+.name {
+  flex: 1;
+}
+
+.contacts {
+  width: 150px;
+}
+
