@@ -8,7 +8,8 @@ export default class WorkExperience extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="preview__section">
+        <h3 className="preview__section__heading">Work Experience</h3>
         <ul>
           {this.props.workExperience.map((workExperience) => (
             <li key={workExperience.id}>
