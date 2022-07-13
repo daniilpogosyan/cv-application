@@ -1,5 +1,6 @@
 import React from 'react';
 import CVForm from './components/CVForm/CVForm'
+import Preview from './components/Preview/Preview';
 import uniqid from 'uniqid';
 
 class App extends React.Component {
@@ -141,6 +142,11 @@ class App extends React.Component {
           onWorkExperienceItemUpdate={this.handleWorkExperienceItemChange}
           onWorkExperienceItemAdd={this.handleWorkExperienceItemAdd}
           onWorkExperienceItemDelete={this.handleWorkExperienceItemDelete}
+        />
+        <Preview 
+          personal={this.state.personal}
+          education={this.state.education}
+          workExperience={this.state.workExperience}
         />
       </div>
     );
