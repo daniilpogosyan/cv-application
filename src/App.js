@@ -1,78 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CVForm from './components/CVForm/CVForm'
 import Preview from './components/Preview/Preview';
 import uniqid from 'uniqid';
 import './App.css'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+function App(props) {
+  const [personal, setPersonal] = useState({
+    name: "",
+    email: "",
+    phoneNumber: ""
+  });
 
-    this.state = {
-      personal: {
-        name: "",
-        email: "",
-        phoneNumber: ""
-      },
-      education: [
-        {
-          id: uniqid(),
-          data: {
-            place: "home",
-            study: "math",
-            period: "2000"
-          }
-        },
-      ],
-      workExperience: [
-        {
-          id: uniqid(),
-          data: {
-            company: "macrohard",
-            position: "janitor",
-            period: "2022"
-          }
-        },
-      ]
-    }
+  const [education, setEducation] = useState([
+    {
+      id: uniqid(),
+      data: {
+        place: "home",
+        study: "math",
+        period: "2000"
+      }
+    },
+  ]);
 
-    this.handlePersonalChange = this.handlePersonalChange.bind(this);
+  const [workExperience, setWorkExperience] = useState([
+    {
+      id: uniqid(),
+      data: {
+        company: "macrohard",
+        position: "janitor",
+        period: "2022"
+      }
+    },
+  ]);
 
-    this.handleEducationItemChange = this.handleEducationItemChange.bind(this);
-    this.handleEducationItemAdd = this.handleEducationItemAdd.bind(this);
-    this.handleEducationItemDelete = this.handleEducationItemDelete.bind(this);
-
-    this.handleWorkExperienceItemChange = this.handleWorkExperienceItemChange.bind(this);
-    this.handleWorkExperienceItemAdd = this.handleWorkExperienceItemAdd.bind(this);
-    this.handleWorkExperienceItemDelete = this.handleWorkExperienceItemDelete.bind(this);
+  function handlePersonalChange(event) {
+    const newPersonal = JSON.parse(
+      JSON.stringify(personal)
+    );
+    newPersonal[event.target.name] = event.target.value;
+    setPersonal(newPersonal)
   }
 
-  handlePersonalChange(event) {
-    this.setState((state) => {
-      const personal = JSON.parse(
-        JSON.stringify(state.personal)
-      );
-      personal[event.target.name] = event.target.value;
-      return {personal}
-    })
-  }
-  
-  handleEducationItemChange(event, id) {
-    this.setState((state) => {
-      const education = JSON.parse(
-        JSON.stringify(state.education)
-      );
+  function handleEducationItemChange(event, id) {
+    const newEducation = JSON.parse(
+      JSON.stringify(education)
+    );
 
-      const targetIndex = state.education
-        .findIndex((educationItem) => educationItem.id === id);
-        
-      education[targetIndex].data[event.target.name] = event.target.value;
+    const targetIndex = education
+      .findIndex((educationItem) => educationItem.id === id);
       
-      return {education}
-    })
+    newEducation[targetIndex].data[event.target.name] = event.target.value;
+
+    setEducation(newEducation);
   }
 
-  handleEducationItemAdd(event) {
+  function handleEducationItemAdd(event) {
     const newItem = {
       id: uniqid(),
       data: {
@@ -80,34 +62,29 @@ class App extends React.Component {
         study: "",
         period: ""
       }
-    }
-    this.setState({
-      education: this.state.education.concat(newItem)
-    })
-  }
-  
-  handleEducationItemDelete(event, id) {
-    this.setState({
-      education: this.state.education.filter((item) => item.id !== id)
-    })
+    };
+
+    setEducation(education.concat(newItem));
   }
 
-  handleWorkExperienceItemChange(event, id) {
-    this.setState((state) => {
-      const workExperience = JSON.parse(
-        JSON.stringify(state.workExperience)
-      );
+  function handleEducationItemDelete(event, id) {
+    setEducation(education.filter((item) => item.id !== id));
+  }
 
-      const targetIndex = state.workExperience
-        .findIndex((workExperienceItem) => workExperienceItem.id === id);
-        
-      workExperience[targetIndex].data[event.target.name] = event.target.value;
+  function handleWorkExperienceItemChange(event, id) {
+    const newWorkExperience = JSON.parse(
+      JSON.stringify(workExperience)
+    );
+
+    const targetIndex = workExperience
+      .findIndex((workExperienceItem) => workExperienceItem.id === id);
       
-      return {workExperience}
-    })
+    newWorkExperience[targetIndex].data[event.target.name] = event.target.value;
+    
+    setWorkExperience(newWorkExperience);
   }
 
-  handleWorkExperienceItemAdd(event) {
+  function handleWorkExperienceItemAdd(event) {
     const newItem = {
       id: uniqid(),
       data: {
@@ -116,43 +93,37 @@ class App extends React.Component {
         period: ""
       }
     }
-    this.setState({
-      workExperience: this.state.workExperience.concat(newItem)
-    })
+    
+    setWorkExperience(workExperience.concat(newItem));
   }
   
-  handleWorkExperienceItemDelete(event, id) {
-    this.setState({
-      workExperience: this.state.workExperience.filter((item) => item.id !== id)
-    })
+  function handleWorkExperienceItemDelete(event, id) {
+    setWorkExperience(workExperience.filter((item) => item.id !== id));
   }
 
-  render() {
-    return (
-      <div className="App">
-        <CVForm
-          personal={this.state.personal}
-          onPersonalUpdate={this.handlePersonalChange}
+  return (
+    <div className="App">
+      <CVForm
+        personal={personal}
+        onPersonalUpdate={handlePersonalChange}
 
-          education={this.state.education}
-          onEducationItemUpdate={this.handleEducationItemChange}
-          onEducationItemAdd={this.handleEducationItemAdd}
-          onEducationItemDelete={this.handleEducationItemDelete}
+        education={education}
+        onEducationItemUpdate={handleEducationItemChange}
+        onEducationItemAdd={handleEducationItemAdd}
+        onEducationItemDelete={handleEducationItemDelete}
 
-          workExperience={this.state.workExperience}
-          onWorkExperienceItemUpdate={this.handleWorkExperienceItemChange}
-          onWorkExperienceItemAdd={this.handleWorkExperienceItemAdd}
-          onWorkExperienceItemDelete={this.handleWorkExperienceItemDelete}
-        />
-        <Preview 
-          personal={this.state.personal}
-          education={this.state.education}
-          workExperience={this.state.workExperience}
-        />
-      </div>
-    );
-  }
-
+        workExperience={workExperience}
+        onWorkExperienceItemUpdate={handleWorkExperienceItemChange}
+        onWorkExperienceItemAdd={handleWorkExperienceItemAdd}
+        onWorkExperienceItemDelete={handleWorkExperienceItemDelete}
+      />
+      <Preview 
+        personal={personal}
+        education={education}
+        workExperience={workExperience}
+      />
+    </div>
+  )  
 }
 
 export default App;
