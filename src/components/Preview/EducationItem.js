@@ -1,17 +1,11 @@
 import React from "react";
 
-export default class EducationItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <article>
-        <p>{this.props.educationItem.place}</p>
-        <p>{this.props.educationItem.study}</p>
-        <p>{this.props.educationItem.period}</p>
-      </article>
-    )
-  }
+export default function EducationItem(props) {
+  return (
+    <article>
+      <p>{props.educationItem.place}</p>
+      <p>{props.educationItem.study}</p>
+      <p>{props.educationItem.period}</p>
+    </article>
+  )
 }
